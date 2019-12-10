@@ -41,9 +41,24 @@ Park.prototype.findBySpecies = function(dinoSpecies) {
 };
 
 // Calculate the total number of visitors per day
+Park.prototype.totalVistors = function() {
+  let total = 0;
+  for (dinosaur of this.dinosaurs) total += dinosaur.guestsAttractedPerDay;
+  return total;
+};
 
 // Calculate the total number of visitors per year
+Park.prototype.totalVistorsYear = function() {
+  let dayTotal = this.totalVistors();
+  const total = dayTotal * 365;
+  return total;
+};
 
 // Calculate the total revenue from ticket sales for one year
+Park.prototype.yearTakenings = function() {
+  let yearVisotors = this.totalVistorsYear();
+  const total = yearVisotors * this.ticketPrice;
+  return total;
+};
 
 module.exports = Park;

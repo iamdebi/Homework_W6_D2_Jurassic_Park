@@ -87,7 +87,7 @@ describe("Park", function() {
 
   it("should be able to calculate the total number of visitors per day", function() {
     // act
-    actual = park.totalVistors;
+    actual = park.totalVistors();
     expected = 210;
     // assert
     // assert.equal(true, false);
@@ -96,8 +96,8 @@ describe("Park", function() {
 
   it("should be able to calculate the total number of visitors per year", function() {
     // act
-    actual = park.totalVistorsYear;
-    expected = 210 * 7 * 52;
+    actual = park.totalVistorsYear();
+    expected = 210 * 365;
     // assert
     // assert.equal(true, false);
     assert.strictEqual(actual, expected);
@@ -105,8 +105,8 @@ describe("Park", function() {
 
   it("should be able to calculate total revenue for one year", function() {
     // act
-    actual = park.yearTakenings;
-    expected = park.totalVistorsYear * park.ticketPrice;
+    actual = park.yearTakenings();
+    expected = 383250;
     // assert
     // assert.equal(true, false);
     assert.strictEqual(actual, expected);
