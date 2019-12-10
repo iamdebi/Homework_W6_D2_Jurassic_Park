@@ -1,3 +1,5 @@
+// beforeEach when const or let before name undefined?
+
 const assert = require("assert");
 const Park = require("../models/park.js");
 const Dinosaur = require("../models/dinosaur.js");
@@ -8,7 +10,14 @@ const Dinosaur = require("../models/dinosaur.js");
 
 describe("Park", function() {
   beforeEach(function() {
-    park = new Park("Jurassic Park", 5, ["Dippy", "Arlo", "Downpour"]);
+    rex = new Dinosaur("t-rex", "carnivore", 50);
+    dippy = new Dinosaur("diplodocus", "herbivore", 70);
+    arlo = new Dinosaur("apatosaurus", "herbivore", 80);
+    downpour = new Dinosaur("pterodactyl", "carnivore", 60);
+  });
+
+  beforeEach(function() {
+    park = new Park("Jurassic Park", 5, [dippy, arlo, downpour]);
   });
 
   it("should have a name", function() {
@@ -32,7 +41,7 @@ describe("Park", function() {
   it("should have a collection of dinosaurs", function() {
     // act
     actual = park.dinosaurs;
-    expected = ["Dippy", "Arlo", "Downpour"];
+    expected = [dippy, arlo, downpour];
     // assert
     // assert.equal(true, false);
     assert.deepStrictEqual(actual, expected);
@@ -40,26 +49,28 @@ describe("Park", function() {
 
   it("should be able to add a dinosaur to its collection", function() {
     // act
-    park.addDinosaur("Rex");
+    park.addDinosaur(rex);
     actual = park.dinosaurs;
-    expected = ["Rex"];
+    expected = [dippy, arlo, downpour, rex];
     // assert
     // assert.equal(true, false);
-    assert.strictEqual(actual, expected);
+    assert.deepStrictEqual(actual, expected);
   });
 
   it("should be able to remove a dinosaur from its collection", function() {
     // act
-    park.removeDinosaur("Dippy");
+    park.removeDinosaur(dippy);
     actual = park.dinosaurs;
-    expected = ["Arlo", "Downpour"];
+    expected = [arlo, downpour];
     // assert
     // assert.equal(true, false);
-    assert.strictEqual(actual, expected);
+    assert.deepStrictEqual(actual, expected);
   });
 
   it("should be able to find the dinosaur that attracts the most visitors", function() {
     // act
+    actual = park.popular();
+    expected = arlo;
     // assert
     // assert.equal(true, false);
     assert.strictEqual(actual, expected);
@@ -67,13 +78,17 @@ describe("Park", function() {
 
   it("should be able to find all dinosaurs of a particular species", function() {
     // act
+    actual = park.findBySpecies("apatosaurus");
+    expected = [arlo];
     // assert
     // assert.equal(true, false);
-    assert.strictEqual(actual, expected);
+    assert.deepStrictEqual(actual, expected);
   });
 
   it("should be able to calculate the total number of visitors per day", function() {
     // act
+    actual = park.totalVistors;
+    expected = 210;
     // assert
     // assert.equal(true, false);
     assert.strictEqual(actual, expected);
@@ -81,6 +96,8 @@ describe("Park", function() {
 
   it("should be able to calculate the total number of visitors per year", function() {
     // act
+    actual = park.totalVistorsYear;
+    expected = 210 * 7 * 52;
     // assert
     // assert.equal(true, false);
     assert.strictEqual(actual, expected);
@@ -88,6 +105,8 @@ describe("Park", function() {
 
   it("should be able to calculate total revenue for one year", function() {
     // act
+    actual = park.yearTakenings;
+    expected = park.totalVistorsYear * park.ticketPrice;
     // assert
     // assert.equal(true, false);
     assert.strictEqual(actual, expected);
