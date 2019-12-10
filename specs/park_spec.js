@@ -8,7 +8,7 @@ const Dinosaur = require("../models/dinosaur.js");
 
 describe("Park", function() {
   beforeEach(function() {
-    park = new Park("Jurassic Park", 5);
+    park = new Park("Jurassic Park", 5, ["Dippy", "Arlo", "Downpour"]);
   });
 
   it("should have a name", function() {
@@ -32,7 +32,7 @@ describe("Park", function() {
   it("should have a collection of dinosaurs", function() {
     // act
     actual = park.dinosaurs;
-    expected = [];
+    expected = ["Dippy", "Arlo", "Downpour"];
     // assert
     // assert.equal(true, false);
     assert.deepStrictEqual(actual, expected);
@@ -40,6 +40,9 @@ describe("Park", function() {
 
   it("should be able to add a dinosaur to its collection", function() {
     // act
+    park.addDinosaur("Rex");
+    actual = park.dinosaurs;
+    expected = ["Rex"];
     // assert
     // assert.equal(true, false);
     assert.strictEqual(actual, expected);
@@ -47,6 +50,9 @@ describe("Park", function() {
 
   it("should be able to remove a dinosaur from its collection", function() {
     // act
+    park.removeDinosaur("Dippy");
+    actual = park.dinosaurs;
+    expected = ["Arlo", "Downpour"];
     // assert
     // assert.equal(true, false);
     assert.strictEqual(actual, expected);
