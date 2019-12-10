@@ -28,23 +28,17 @@ Park.prototype.popular = function() {
   return popularDinosaur;
 };
 
-// Park.prototype.popular = function() {
-//   for (const dinosaur of this.dinosaurs) {
-//     const visitArray = dinosaur.guestsAttractedPerDay.sort();
-//     let popularDino = visitArray.shift();
-//   }
-//   return popularDino;
-// };
-
-// Park.prototype.popular = function() {
-//   this.dinosaurs.map(dinosaur => {
-//     const visitArray = dinosaur.guestsAttractedPerDay.sort();
-//     let popularDino = visitArray.shift();
-//   });
-//   return popularDino;
-// };
-
 // Find all dinosaurs of a particular species
+Park.prototype.findBySpecies = function(dinoSpecies) {
+  const foundDinoArray = [];
+  const DinoArray = this.dinosaurs.filter(dinosaur => dinosaur.species);
+  for (const dinosaur of DinoArray) {
+    if (dinosaur.species === dinoSpecies) {
+      foundDinoArray.push(dinosaur);
+    }
+  }
+  return foundDinoArray;
+};
 
 // Calculate the total number of visitors per day
 
